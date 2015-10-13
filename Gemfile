@@ -1,6 +1,8 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
-ruby '2.2.2'
+ruby '2.1.7'
+
+gem 'tzinfo-data',platforms: [:mingw, :mswin, :x64_mingw]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
