@@ -46,9 +46,11 @@ class MoviesController < ApplicationController
   end
 
   def sortbyDate
+    @all_ratings=["G","PG","PG-13","R"]
     @movies=  Movie.all.order("release_date DESC")
   end
   def sortbyTitle
+    @all_ratings=["G","PG","PG-13","R"]
     @movies=  Movie.all.order("title ASC")
   end
 
@@ -57,13 +59,25 @@ class MoviesController < ApplicationController
   def checkrating
     @all_ratings=["G","PG","PG-13","R"]
     @checksult = Array(params[:ratings])
-       # @checkmovies=Array.new
-       @checkmovies=Hash.new
-     # s="";
+    # Rails.logger.debug("checksult: #{@checksult.inspect}")
+    checksql=""
+    count=1;
     @checksult.each do |rat|
-      # @checkmovies<<Movie.all.find_by_rating(rat[0])
-      @checkmovies=Movie.where(:rating =>rat)
+      
+      if count<@checksult.size
+        checksql=checksql+"'"+rat[0]+"'"+",";
+      else
+       checksql=checksql+"'"+rat[0]+"'";
+      end
+      count+=1;
+      
     end
+    sql="select * from movies where rating in ("+checksql+" )"
+    # Rails.logger.debug("checksult: #{sql.inspect}")
+    # @checkmovies=Movie.where(:rating =>rat[0])
+
+    @checkmovies=Movie.find_by_sql(sql);
+
      
   end
 
