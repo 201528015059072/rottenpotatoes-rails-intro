@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "movies/sortbyDate" => "movies#sortbyDate"
   get "movies/sortbyTitle" => "movies#sortbyTitle"
   resources :movies 
-
+root :to => "movies#index"
   # Example resource route with options:
   #   resources :products do
   #     member do
