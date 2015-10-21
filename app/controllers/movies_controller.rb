@@ -6,13 +6,15 @@ class MoviesController < ApplicationController
 
   def show
     id = params[:id] # retrieve movie ID from URI route
-    puts "kao"
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
-    @movies = Movie.all
+    @all_ratings=["G","PG","PG-13","R"]
+    @movies=Movie.all
+     
+
   end
 
   def new
@@ -48,6 +50,21 @@ class MoviesController < ApplicationController
   end
   def sortbyTitle
     @movies=  Movie.all.order("title ASC")
+  end
+
+   
+
+  def checkrating
+    @all_ratings=["G","PG","PG-13","R"]
+    @checksult = Array(params[:ratings])
+       # @checkmovies=Array.new
+       @checkmovies=Hash.new
+     # s="";
+    @checksult.each do |rat|
+      # @checkmovies<<Movie.all.find_by_rating(rat[0])
+      @checkmovies=Movie.where(:rating =>rat)
+    end
+     
   end
 
 

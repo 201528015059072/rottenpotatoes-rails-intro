@@ -16,7 +16,14 @@ Rails.application.routes.draw do
 
   get "movies/sortbyDate" => "movies#sortbyDate"
   get "movies/sortbyTitle" => "movies#sortbyTitle"
-  resources :movies 
+  get "movies/check" => "movies#check"
+
+  resources :movies do
+    collection do
+        get :checkrating
+
+    end
+  end
 root :to => "movies#index"
   # Example resource route with options:
   #   resources :products do
